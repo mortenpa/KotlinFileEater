@@ -13,12 +13,11 @@ Boilerplate for this service is already provided with a MongoDB database set up.
 - User can request metadata for the token, multiple tokens metadata can be queried for in a single request
 - User can request a file with token, file is returned with valid headers set
 - [openapi.yml](src/main/resources/public/docs/openapi.yml) file describes all the endpoints
-
 - When an invalid request is made, 400 Bad Request is returned with message containing information about the error
 - Internal exceptions that happen are handled and `503 Service Unavailable` is returned
 - Critical exceptions are logged
-  - See (src/main/kotlin/com/hrblizz/fileapi/library/log/Logger.kt)
-- [SUMMARY.md] file is filled
+  - Should use [Logger.kt](src/main/kotlin/com/hrblizz/fileapi/library/log/Logger.kt) component
+- [SUMMARY.md](SUMMARY.md) file is filled with Your commments
 
 # Submission
 
