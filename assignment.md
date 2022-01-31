@@ -3,9 +3,9 @@
 At the moment every API has its own upload/download endpoints implemented, but maintaining them all is difficult.
 To improve the situation, an API is needed that allows uploading files and accessing them with a token.
 The API is responsible for saving the file on disk and storing metadata about it.
-For each uploaded file, a unique token (UUID) should be generated
+For each uploaded file, a unique token (UUID) should be generated.
 
-Boilerplate for this service is already provided with a mongoDB database set up
+Boilerplate for this service is already provided with a MongoDB database set up.
 
 **Acceptance**
 - Code follows basic coding conventions (see for Java and Kotlin standards below)
@@ -14,14 +14,24 @@ Boilerplate for this service is already provided with a mongoDB database set up
 - User can request a file with token, file is returned with valid headers set
 - [openapi.yml](src/main/resources/public/docs/openapi.yml) file describes all the endpoints
 
-- When an invalid request is made, 400 Bad Request should be returned with message containing information about the error
-- Internal exceptions that happen need to be handled and 503 Service Unavailable returned
-- Critical exceptions need to be logged (For now basic print statements can be used on exceptions), exception message should contain as much detail as possible and stacktrace if applicable
+- When an invalid request is made, 400 Bad Request is returned with message containing information about the error
+- Internal exceptions that happen are handled and `503 Service Unavailable` is returned
+- Critical exceptions are logged
+  - See (src/main/kotlin/com/hrblizz/fileapi/library/log/Logger.kt)
+- [SUMMARY.md] file is filled
+
+# Submission
+
+You can submit your code whichever way you’re most comfortable with. A zip archive is fine.
+But if you are familiar with version control tools, you probably know the benefits of setting up a repository, keeping your commit history and providing us with a link where we can leave feedback right in your code.
+
+As for any additional scripts, documents or your draft-and-test files (yes, please!), include them in a subdirectory.
+
+Also please include an informative [SUMMARY.md] where you at the very least describe what your app (“basically”) does and how to start it.
 
 # Coding standards
 
-For most of the new code Kotlin is preferred, but no requirement to rewrite old Java code to Kotlin
-For this task Java can be used
+For most of the new code Kotlin is preferred, but for this task Java can be used.
 
 For Kotlin - https://kotlinlang.org/docs/reference/coding-conventions.html
 For Java - https://google.github.io/styleguide/javaguide.html
