@@ -12,5 +12,38 @@ paths:
         '200':
           description: It's a response.
 
+  /api/files:
+    post:
+      summary: File upload
+      description: Upload a file
+      responses:
+        '200':
+          description: File upload successful
+
+  /api/files/metas:
+    get:
+      summary: Fetch file tokens
+      description: Returns all available file tokens as a list
+      responses:
+        '200':
+          description: file tokens as a list
+
+  /api/files/:get_token:
+    get:
+      summary: Get a file using an UUID token
+      description: Return the file with the corresponding UUID
+      responses:
+        '200':
+          description: Returns the file
+
+  /api/files/:delete_token:
+    delete:
+      summary: Delete a file
+      description: Deletes the file corresponding to the token
+      responses:
+        '200':
+          description: File is deleted
+
+
 security:
   - basicAuth: []

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.context.request.WebRequest
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
+import org.springframework.web.multipart.MultipartException
 import org.springframework.web.multipart.support.MissingServletRequestPartException
 import org.springframework.web.servlet.NoHandlerFoundException
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
@@ -106,6 +107,18 @@ class RestExceptionHandler(
         )
         return handleExceptionInternal(ex, apiError, headers, errorStatus, request)
     }
+
+    @ExceptionHandler(MultipartException::class)
+    fun handleMultipartException(ex: MultipartException, request: WebRequest): ResponseEntity<Any> {
+        val errorStatus = HttpStatus.BAD_REQUEST
+        val apiError = com.hrblizz.fileapi.rest.ResponseEntity<Any>(
+            null,
+            listOf(ErrorMessage("Invalid multipart request: ${ex.message}")),
+            errorStatus.value()
+        )
+        return handleExceptionInternal(ex, apiError, null, errorStatus, request)
+    }
+
 
     override fun handleMissingServletRequestPart(
         ex: MissingServletRequestPartException,
