@@ -21,7 +21,7 @@ class FileController(
     private val fileRepository: FileRepository
 ) {
 
-    private val fileDirectory = Paths.get("uploads");
+    private val fileDirectory = Paths.get("uploads")
 
     @GetMapping("/files/metas")
     fun getFileMetas(): ResponseEntity<List<FileEntity>> {
@@ -37,7 +37,7 @@ class FileController(
 
         val fileEntityOptional = fileRepository.findById(token)
         if (!fileEntityOptional.isPresent) {
-            return SpringResponseEntity.status(HttpStatus.NOT_FOUND).body(null)
+            return SpringResponseEntity.status(HttpStatus.BAD_REQUEST).body(null)
         }
 
         val fileEntity = fileEntityOptional.get()
@@ -56,13 +56,12 @@ class FileController(
         // TODO: figure out types
         headers.contentType = MediaType.IMAGE_PNG
         headers.set(HttpHeaders.CONTENT_TYPE, "image/webp")
-
+        headers.set(HttpHeaders.CACHE_CONTROL, "public, max-age=3600")
         headers.set("Content-Disposition", "attachment; filename=${fileEntity.filename}")
 
         // Return the InputStreamResource
         return org.springframework.http.ResponseEntity(resource, headers, HttpStatus.OK)
     }
-
 
 
     @PostMapping("/files")
@@ -86,10 +85,11 @@ class FileController(
             it.filename = fileName
             it.originalFilename = file.originalFilename
             it.upload_date = Date()
+            it.fileExtension = file.originalFilename?.substringAfterLast('.', "")
+            it.fileSize = file.size
         }
         println(fileEntity.toString())
 
-//        Files.createDirectory(fileDirectory);
         Files.write(filePath, file.bytes)
 
         fileRepository.save(fileEntity)
@@ -111,7 +111,7 @@ class FileController(
             return ResponseEntity(
                 mapOf(
                     "deleted" to false
-                ), listOf(ErrorMessage("File with the token not found")), HttpStatus.NOT_FOUND.value()
+                ), listOf(ErrorMessage("File with the token not found")), HttpStatus.BAD_REQUEST.value()
             )
         }
 

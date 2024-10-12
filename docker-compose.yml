@@ -11,6 +11,13 @@ services:
     ports:
       - 27027:27017
     command: mongod --logpath=/dev/null # --quiet
+  testdb:
+    image: mongo:latest
+    volumes:
+      - testdb-data:/data/db
+    ports:
+      - 27028:27017
+    command: mongod --logpath=/dev/null # --quiet
 
 volumes:
   filedb-data:
