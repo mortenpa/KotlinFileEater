@@ -4,6 +4,9 @@ echo_info() {
 }
 export $(cat ./variables.env | xargs)
 
+echo "MongoDB Host: $ENV_MONGODB_HOST"
+echo "MongoDB Port: $ENV_MONGODB_PORT"
+
 if [ $# -eq 0 ]; then
   echo_error "No arguments supplied!\n"
 
@@ -13,8 +16,9 @@ if [ $# -eq 0 ]; then
   echo_info "start - To Start the application"
 
   echo_info "-----"
-  echo_info "init - Run this to make initial DB Inserts"
-
+  echo_info "test - Run the unit tests"
+  echo "Press Enter to continue..."
+  read
   exit 1
 fi
 
@@ -24,6 +28,16 @@ if [ $1 = "start" ]; then
   export ENV_DEBUG_MODE=true
 
   mvn spring-boot:run
+  echo "Press Enter to continue..."
+  read
+elif [ $1 = "test" ]; then
+  echo_info "Running tests..."
+
+  mvn test
+  echo "Press Enter to continue..."
+  read
 else
   echo_error "Unknown command"
+    echo "Press Enter to continue..."
+    read
 fi

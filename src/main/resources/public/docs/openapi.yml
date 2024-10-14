@@ -4,46 +4,70 @@ info:
   title: File API
 
 paths:
-  /status:
+  /api/status:
     get:
-      summary: Status
-      description: Get Status.
+      summary: Check API status
+      description: Get the current status of the API
       responses:
         '200':
-          description: It's a response.
+          description: The API is functional
 
   /api/files:
     post:
       summary: File upload
-      description: Upload a file
+      description: Upload a file to the server
       responses:
         '200':
           description: File upload successful
+        '400':
+          description: Invalid file type or size limit exceeded
 
   /api/files/metas:
     get:
-      summary: Fetch file tokens
+      summary: Every file metadata
       description: Returns all available file tokens as a list
       responses:
         '200':
-          description: file tokens as a list
+          description: returns a list of all available files metadata
+    post:
+      summary: File metadata per token(s)
+      description: Returns metadata for files based on provided tokens
+      responses:
+        '200':
+          description: Returns a list of file metadata
+        '400':
+          description: Invalid token format
 
-  /api/files/:get_token:
+
+  /api/files/{get_token}:
     get:
-      summary: Get a file using an UUID token
+      summary: File download
       description: Return the file with the corresponding UUID
       responses:
         '200':
           description: Returns the file
+        '400':
+          description: Invalid token
 
-  /api/files/:delete_token:
+  /api/files/{delete_token}:
     delete:
-      summary: Delete a file
+      summary: File deletion
       description: Deletes the file corresponding to the token
       responses:
         '200':
           description: File is deleted
+        '400':
+          description: Token can't be traced to a file
 
 
-security:
-  - basicAuth: []
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: |
+        Basic authentication using username and password.
+        Provide your credentials in the Authorization header as follows:
+        ```
+        Authorization: Basic <base64-encoded-credentials>
+        ```

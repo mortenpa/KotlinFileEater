@@ -22,7 +22,7 @@ internal class ApiAuthenticationEntryPoint : AuthenticationEntryPoint {
         response.contentType = MediaType.APPLICATION_JSON_VALUE
 
         val writer = response.writer
-        val responseEntity = ResponseEntity(null, listOf(ErrorMessage(authEx.message)), HttpStatus.UNAUTHORIZED.value())
+        val responseEntity = ResponseEntity(HttpStatus.UNAUTHORIZED, listOf(ErrorMessage(authEx.message)))
 
         writer.println(JsonUtil.toJson(responseEntity))
         writer.flush()

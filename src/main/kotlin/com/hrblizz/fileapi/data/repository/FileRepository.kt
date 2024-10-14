@@ -4,4 +4,6 @@ import com.hrblizz.fileapi.data.entities.FileEntity
 import org.springframework.data.mongodb.repository.MongoRepository
 import java.util.*
 
-interface FileRepository: MongoRepository<FileEntity, UUID>
+interface FileRepository: MongoRepository<FileEntity, UUID> {
+    fun findAllByUuidIn(uuids: List<UUID>): List<FileEntity>
+}

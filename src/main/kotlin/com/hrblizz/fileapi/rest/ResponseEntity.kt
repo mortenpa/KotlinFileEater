@@ -1,22 +1,9 @@
 package com.hrblizz.fileapi.rest
 
-class ResponseEntity<T> {
-    var data: T? = null
+import org.springframework.http.HttpStatus
 
-    var errors: List<ErrorMessage>? = null
-
-    var status: Int = 0
-        private set
-
-    constructor(status: Int) {
-        this.status = status
-    }
-
-    constructor(data: T?, status: Int) : this(data, null, status) {}
-
-    constructor(data: T?, errors: List<ErrorMessage>?, status: Int) {
-        this.data = data
-        this.errors = errors
-        this.status = status
-    }
-}
+class ResponseEntity<T> (
+    val status: HttpStatus,
+    val data: T? = null,
+    val errors: List<ErrorMessage>? = null
+)

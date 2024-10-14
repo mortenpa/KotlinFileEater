@@ -1,5 +1,3 @@
-version: "3.1"
-
 services:
   filedb:
     image: mongo:latest
@@ -22,3 +20,4 @@ services:
 volumes:
   filedb-data:
     external: true
+  testdb-data:

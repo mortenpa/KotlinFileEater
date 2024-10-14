@@ -10,11 +10,12 @@ class FileEntity {
     lateinit var uuid: UUID
     lateinit var filename: String
     lateinit var originalFilename: String
-    var upload_date: Date = Date()
+    lateinit var mimeType: String
+    var uploadDate: Date = Date()
     var fileExtension: String? = null
     var fileSize: Long = 0
 
     override fun toString(): String {
-        return "FileEntity(uuid='$uuid', filename='$originalFilename', upload_date='${upload_date}')"
+        return "FileEntity(uuid='$uuid', filename='$originalFilename', upload_date='${uploadDate}')"
     }
 }

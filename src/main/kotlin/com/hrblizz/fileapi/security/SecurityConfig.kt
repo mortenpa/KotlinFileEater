@@ -13,7 +13,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 @EnableWebSecurity
-@Profile("!test")
+@Profile("!test & !auth-test")
 internal class SecurityConfig(
     private val apiAuthenticationEntryPoint: ApiAuthenticationEntryPoint,
 ) {
@@ -28,7 +28,7 @@ internal class SecurityConfig(
             .csrf().disable()
             .authorizeRequests()
             .antMatchers("/docs", "/docs/*").permitAll()
-            .antMatchers("/status", "/webjars/**", "/favicon.ico").permitAll()
+            .antMatchers("/api/status", "/webjars/**", "/favicon.ico").permitAll()
             .anyRequest().fullyAuthenticated()
             .and()
             .cors()
@@ -36,10 +36,11 @@ internal class SecurityConfig(
         return http.build()
     }
 
+    // this is used to access the backend from the frontend application
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
-        configuration.allowedOrigins = listOf("http://localhost:3000") // Your frontend URL
+        configuration.allowedOrigins = listOf("http://localhost:3000")
         configuration.allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "OPTIONS")
         configuration.allowedHeaders = listOf("*")
         configuration.allowCredentials = true

@@ -16,21 +16,38 @@ Kotlin and Java classes work very well together (https://kotlinlang.org/docs/mix
 
 ### Starting the database
     docker-compose up -d
+This spins up both the development/production-ready database and testing database
 
 ### Configuration
 
 See `variables.env` file
 
+Also `application.properties` for additional configuration, `application-test.properties`/`application-auth-test.properties` for testing properties
+
+You might need to set environment variables manually when launching from an IDE:
+`ENV_MONGODB_DATABASE=files;ENV_MONGODB_HOST=filedb;ENV_MONGODB_PORT=27027`
+
 ## Usage
 In development add
 
     127.0.0.1    filedb
+    127.0.0.1    testdb
 to your `/etc/hosts` file
 
-For basic auth, username is `admin` and password is `hunter2`
+For basic request auth, username is `admin` and password is `hunter2`
 
 ### Start from CLI
+Use the startup script
 
     ./do.sh start
+
+or
+
+    spring-boot:run
+to run the project
+
+    mvn test
+
+to test the project
 
 For API documentation go to http://localhost:6011/docs

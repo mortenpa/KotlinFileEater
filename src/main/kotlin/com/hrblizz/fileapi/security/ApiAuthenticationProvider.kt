@@ -1,5 +1,6 @@
 package com.hrblizz.fileapi.security
 
+import org.springframework.context.annotation.Profile
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -7,6 +8,7 @@ import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
 
 @Component
+@Profile("!test & !auth-test")
 class ApiAuthenticationProvider : AuthenticationProvider {
 
     override fun authenticate(authentication: Authentication): Authentication {
