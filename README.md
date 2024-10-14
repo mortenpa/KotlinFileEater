@@ -27,6 +27,10 @@ Also `application.properties` for additional configuration, `application-test.pr
 You might need to set environment variables manually when launching from an IDE:
 `ENV_MONGODB_DATABASE=files;ENV_MONGODB_HOST=filedb;ENV_MONGODB_PORT=27027`
 
+Create directories for your upload paths if they don't exist yet, see `application.properties`:
+    
+    files-api.file-directory=uploads/development
+
 ## Usage
 In development add
 

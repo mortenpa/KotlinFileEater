@@ -29,9 +29,10 @@ Maybe a bit about time management as well, shouldn't get carried away with front
 
 ## TODOs
 
-1. Finish up frontend. Currently it displays a list of metadata, allows for file uploads and displays pictures.
+1. Finish up the frontend. Currently it displays a list of metadata, allows for file uploads and displays pictures.
 2. More tests. Always more tests. 
 3. Logging barely got any attention. Need to actually log stuff.
 4. Refactor code, especially around the tests. Each test should live its own, class-based, file-based life.
 5. Authentication. I won't tell anybody about hunter2 though.
 6. Security-related issues like more validation on user inputs or rate limiting requests etc
+7. Create upload directory if it doesn't exist. Delete test files after tests.

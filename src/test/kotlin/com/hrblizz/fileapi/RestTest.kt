@@ -3,15 +3,11 @@ package com.hrblizz.fileapi
 import AuthTestSecurityConfig
 import TestSecurityConfig
 import com.hrblizz.fileapi.data.repository.FileRepository
-import com.hrblizz.fileapi.rest.FileAPIConfiguration
 import com.jayway.jsonpath.JsonPath
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Import
@@ -21,9 +17,6 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic
-import java.nio.file.Files
-import java.nio.file.Path
-import java.nio.file.Paths
 import java.util.*
 
 
@@ -104,7 +97,7 @@ private fun uploadTestFile(
         .andReturn()
 
     val jsonResponse = uploadResult.response.contentAsString
-    return JsonPath.parse(jsonResponse).read<String>("$.uuid")
+    return JsonPath.parse(jsonResponse).read("$.uuid")
 }
 
 
@@ -390,34 +383,3 @@ class TestDeleteFile {
     }
 
 }
-
-//@SpringBootTest
-//@EnableConfigurationProperties(FileAPIConfiguration::class)
-//class FileCleanupTest {
-//
-//    companion object {
-//        private lateinit var testDirectoryPath: Path
-//
-//        @JvmStatic
-//        @BeforeAll
-//        fun init(@Autowired fileAPIConfiguration: FileAPIConfiguration) {
-//            // Set the test directory from the configuration
-//            testDirectoryPath = Paths.get(fileAPIConfiguration.fileDirectory)
-//        }
-//
-//
-//        @JvmStatic
-//        @AfterAll
-//        fun tearDown() {
-//            deleteAllFilesInDirectory(testDirectoryPath.toString())
-//        }
-//
-//        private fun deleteAllFilesInDirectory(directory: String) {
-//            val path: Path = Paths.get(directory)
-//            if (Files.exists(path) && Files.isDirectory(path)) {
-//                Files.list(path).forEach { file ->
-//                    Files.deleteIfExists(file)  // Deletes the file if it exists
-//                }
-//            }
-//        }
-//    }
